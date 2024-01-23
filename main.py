@@ -2,7 +2,7 @@ import telepot as tp
 import time as t
 import qrcode as qr
 
-bot = tp.Bot("1963378791:AAF_IQiZDk_rGT6bvwSzGzCGegBxdQeUBqs")
+bot = tp.Bot("TOKEN")
 
 def chat(msg):
     content_type, chat_type, chat_id = tp.glance(msg)
