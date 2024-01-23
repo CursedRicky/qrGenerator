@@ -10,6 +10,7 @@ def chat(msg):
     if content_type == "text":
         img = qr.make(msg["text"])
         img.save("code.png")
+        t.sleep(1)
         bot.send_photo(chat_id, photo=open('.code.png', 'rb'))
         # if msg["text"] == "Ciao":
         #     bot.sendMessage(chat_id, "Ciao")
