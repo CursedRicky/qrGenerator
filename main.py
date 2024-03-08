@@ -1,23 +1,39 @@
-import telepot as tp
-import time as t
-import qrcode as qr
+import sys, os, customtkinter, qrcode
+from PIL import Image
 
-TOKENbot = input("Insert token:\n")
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
 
-bot = tp.Bot(TOKENbot)
+    return os.path.join(base_path, relative_path)
 
-def chat(msg):
-    content_type, chat_type, chat_id = tp.glance(msg)
+def qrCode():
+    global firstTime
+    img = qrcode.make(textBox.get("0.0", 'end'))
+    img.save(resource_path("code.png"))
+    qrImage.configure(dark_image=Image.open(resource_path("code.png")))
 
-    if content_type == "text":
-        img = qr.make(msg["text"])
-        img.save("code.png")
-        t.sleep(1)
-        bot.send_photo(chat_id, photo=open('.code.png', 'rb'))
-        # if msg["text"] == "Ciao":
-        #     bot.sendMessage(chat_id, "Ciao")
+customtkinter.set_appearance_mode("dark")
+customtkinter.set_default_color_theme("green")
 
-bot.message_loop(chat)
+root = customtkinter.CTk()
+root.geometry("400x400")
+root.title("QR Generator")
+root.resizable(False, False)
 
-while True:
-    t.sleep(5)
+titolo = customtkinter.CTkLabel(master=root, text="Generatore di QR", font=("Verdana", 20))
+titolo.pack(pady=10)
+
+textBox = customtkinter.CTkTextbox(master=root, width=260, height=50)
+textBox.pack(pady=20)
+
+btnGen = customtkinter.CTkButton(master=root, text="Genera QR", command=qrCode)
+btnGen.pack(pady=5)
+
+qrImage = customtkinter.CTkImage(dark_image=Image.open(resource_path("blank.png")), size=(160, 160))
+label = customtkinter.CTkLabel(master=root, text="", image=qrImage)
+label.pack(pady=20)
+
+root.mainloop()
