@@ -4,4 +4,4 @@ Apri il programma, inserisci la tua stringa da convertitre e clicca genera
 
 ## Come installarlo ?
 
-Scarica il file `main.exe`(dist/)
+Scarica il file [`main.exe`](dist/)
